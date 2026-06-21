@@ -73,7 +73,12 @@
   .rev-slider{max-width:680px;margin:0 auto;}
   .rev-viewport{overflow:hidden;}
   .rev-track{display:flex;transition:transform .35s ease;}
-  .rev-track .review{flex:0 0 100%;box-sizing:border-box;min-height:172px;}
+  .rev-track .review{flex:0 0 100%;box-sizing:border-box;min-height:200px;position:relative;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s;}
+  .rev-track .review:hover{border-color:var(--blue);box-shadow:0 8px 22px rgba(59,107,181,.16);transform:translateY(-2px);}
+  .rev-g{position:absolute;top:14px;right:16px;font-weight:800;font-style:italic;font-size:16px;color:#4285F4;}
+  .rev-meta{display:flex;align-items:center;gap:12px;margin-top:16px;}
+  .rev-avatar{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;letter-spacing:.5px;}
+  .rev-meta .who{margin-top:0;}
   .rev-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px;}
   .rev-arrow{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--blue);color:var(--blue);font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;}
   .rev-arrow:hover{background:var(--blue);color:#fff;}
@@ -81,6 +86,9 @@
   .rev-dots{display:flex;gap:8px;}
   .rev-dot{width:9px;height:9px;border-radius:50%;background:var(--border);border:none;padding:0;cursor:pointer;transition:background .15s;}
   .rev-dot.active{background:var(--blue);}
+  .rev-all{display:inline-block;margin-top:20px;color:var(--blue);font-size:15px;font-weight:600;text-decoration:none;}
+  .rev-all:hover{color:var(--blue-dark);text-decoration:underline;}
+  .rev-all .star{color:#f5b716;}
   .final{padding:72px 0;text-align:center;background:var(--bg-soft);}
   .final h2{font-size:32px;color:var(--ink);margin-bottom:10px;}
   .final h2 .accent{color:var(--blue);}
@@ -176,40 +184,95 @@
       <div class="rev-slider">
         <div class="rev-viewport" id="revViewport">
           <div class="rev-track" id="revTrack">
-            <div class="review">
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
               <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p>"Bro is the best pc builder around. Helped me and built the pc of my dreams cheaper than anyone. So lucky to find my boy. Thanks again man!!"</p>
-              <div class="who">— Nicholas Meyers &middot; <span class="gicon">G</span>Google review</div>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#4285F4" aria-hidden="true">NM</span>
+                <span class="who">Nicholas Meyers &middot; Google review</span>
+              </div>
             </div>
-            <div class="review">
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
               <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p>"Great service and pc works nicely I recommend buying off this dude incase you need a nice prebuild"</p>
-              <div class="who">— j d &middot; <span class="gicon">G</span>Google review</div>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#DB4437" aria-hidden="true">JD</span>
+                <span class="who">j d &middot; Google review</span>
+              </div>
             </div>
-            <div class="review">
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
               <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p>"DeParts Systems was a pleasure to deal with for my PC needs. Knowledgeable and Helpful. Thanks!"</p>
-              <div class="who">— John H &middot; <span class="gicon">G</span>Google review</div>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#0F9D58" aria-hidden="true">JH</span>
+                <span class="who">John H &middot; Google review</span>
+              </div>
             </div>
-            <div class="review">
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
               <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p>"He makes really good computers, really happy with mine that I got."</p>
-              <div class="who">— Ethyn Robinson &middot; <span class="gicon">G</span>Google review</div>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#AB47BC" aria-hidden="true">ER</span>
+                <span class="who">Ethyn Robinson &middot; Google review</span>
+              </div>
             </div>
-            <div class="review">
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
               <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p>"Had a great experience working with them and will continue to support them. Very helpful and honest. They know how to build a great system!"</p>
-              <div class="who">— Nigel Jesson &middot; <span class="gicon">G</span>Google review</div>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#00897B" aria-hidden="true">NJ</span>
+                <span class="who">Nigel Jesson &middot; Google review</span>
+              </div>
             </div>
-            <div class="review">
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
               <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p>"Extremely helpful. They improved my original pc plan, substituting old short-lifespan parts with newer, better parts while maintaining a low budget."</p>
-              <div class="who">— Axel Harkavy &middot; <span class="gicon">G</span>Google review</div>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#3b6bb5" aria-hidden="true">AH</span>
+                <span class="who">Axel Harkavy &middot; Google review</span>
+              </div>
             </div>
-            <div class="review">
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
               <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p>"My bf and I had problems with our new build computer. I brought it in and Liang is super helpful. He updated me on every process, let me know which parts weren't working. Super communicative and very patient."</p>
-              <div class="who">— 蘇水涵 &middot; <span class="gicon">G</span>Google review</div>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#F09300" aria-hidden="true">蘇</span>
+                <span class="who">蘇水涵 &middot; Google review</span>
+              </div>
+            </div>
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"I've been wanting a pc for years and finally got one. When I first started talking to Liang I didn't know anything about computers. He was super nice and very helpful."</p>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#C2185B" aria-hidden="true">CM</span>
+                <span class="who">Chilling Music &middot; Google review</span>
+              </div>
+            </div>
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"I had an exceptional experience working with DeParts Systems. Their professionalism, expertise, and prompt customer support impressed me greatly."</p>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#5C6BC0" aria-hidden="true">JY</span>
+                <span class="who">Jason Yuen &middot; Google review</span>
+              </div>
+            </div>
+            <div class="review" data-review>
+              <span class="rev-g" aria-hidden="true">G</span>
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"Great guy to work with, very helpful and amazing customer support 10/10"</p>
+              <div class="rev-meta">
+                <span class="rev-avatar" style="background:#7CB342" aria-hidden="true">Z9</span>
+                <span class="who">Zara 911 &middot; Google review</span>
+              </div>
             </div>
           </div>
         </div>
@@ -218,6 +281,7 @@
           <div class="rev-dots" id="revDots"></div>
           <button class="rev-arrow" id="revNext" type="button" aria-label="Next review">&#8250;</button>
         </div>
+        <div><a href="#" id="revAll" class="rev-all" target="_blank" rel="noopener"><span class="star">&#9733;</span> 5.0 from 121 Google reviews — see them all</a></div>
       </div>
       <a href="https://www.departspcs.com/portfolio" class="seemore" target="_blank" rel="noopener">See the full portfolio &amp; client case studies &rarr;</a>
     </div>
@@ -250,6 +314,12 @@
     var n = slides.length;
     var i = 0;
 
+    // Google reviews destination for cards + "see them all" link
+    var REVIEW_URL = "https://www.google.com/maps/place/DeParts+Systems/@37.7624165,-122.2717,17z/data=!3m1!4b1!4m6!3m5!1s0xad82cc18daf45d53:0x316dd9b507650762!8m2!3d37.7624165!4d-122.2691251!16s%2Fg%2F11ts9nrw2_?entry=ttu";
+    var revAll = document.getElementById('revAll');
+    if(revAll){ revAll.href = REVIEW_URL; }
+    function openReviews(){ window.open(REVIEW_URL, '_blank', 'noopener'); }
+
     // build dot indicators
     for(var d = 0; d < n; d++){
       var dot = document.createElement('button');
@@ -279,14 +349,23 @@
       else if(e.key === 'ArrowRight'){ go(i + 1); }
     });
 
-    // touch swipe
-    var x0 = null;
-    viewport.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+    // touch swipe (track movement so a swipe doesn't trigger the card click)
+    var x0 = null, moved = false;
+    viewport.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; moved = false; }, {passive:true});
+    viewport.addEventListener('touchmove', function(e){
+      if(x0 !== null && Math.abs(e.touches[0].clientX - x0) > 10){ moved = true; }
+    }, {passive:true});
     viewport.addEventListener('touchend', function(e){
       if(x0 === null) return;
       var dx = e.changedTouches[0].clientX - x0;
       if(Math.abs(dx) > 40){ dx < 0 ? go(i + 1) : go(i - 1); }
       x0 = null;
+    });
+
+    // make each review card open the Google reviews page (ignore clicks that were swipes)
+    track.addEventListener('click', function(e){
+      if(moved){ moved = false; return; }
+      if(e.target.closest('[data-review]')){ openReviews(); }
     });
 
     go(0);
