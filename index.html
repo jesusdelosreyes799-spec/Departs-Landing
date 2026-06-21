@@ -69,6 +69,18 @@
   .review .stars{color:#f5b716;font-size:15px;margin-bottom:8px;}
   .review p{font-size:15px;color:var(--text);}
   .review .who{margin-top:10px;font-size:13px;color:var(--muted);font-weight:600;}
+  .gicon{display:inline-block;font-weight:800;font-style:italic;color:var(--blue);margin-right:4px;}
+  .rev-slider{max-width:680px;margin:0 auto;}
+  .rev-viewport{overflow:hidden;}
+  .rev-track{display:flex;transition:transform .35s ease;}
+  .rev-track .review{flex:0 0 100%;box-sizing:border-box;min-height:172px;}
+  .rev-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px;}
+  .rev-arrow{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--blue);color:var(--blue);font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;}
+  .rev-arrow:hover{background:var(--blue);color:#fff;}
+  .rev-arrow:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+  .rev-dots{display:flex;gap:8px;}
+  .rev-dot{width:9px;height:9px;border-radius:50%;background:var(--border);border:none;padding:0;cursor:pointer;transition:background .15s;}
+  .rev-dot.active{background:var(--blue);}
   .final{padding:72px 0;text-align:center;background:var(--bg-soft);}
   .final h2{font-size:32px;color:var(--ink);margin-bottom:10px;}
   .final h2 .accent{color:var(--blue);}
@@ -161,16 +173,50 @@
         <div class="photo">[ Real build photo<br>from portfolio ]</div>
         <div class="photo">[ Real build photo<br>from portfolio ]</div>
       </div>
-      <div class="reviews">
-        <div class="review">
-          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p>"Bro is the best pc builder around. Helped me and built the pc of my dreams cheaper than anyone. So lucky to find my boy. Thanks again man!!"</p>
-          <div class="who">— Nicholas Meyers &middot; Google review</div>
+      <div class="rev-slider">
+        <div class="rev-viewport" id="revViewport">
+          <div class="rev-track" id="revTrack">
+            <div class="review">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"Bro is the best pc builder around. Helped me and built the pc of my dreams cheaper than anyone. So lucky to find my boy. Thanks again man!!"</p>
+              <div class="who">— Nicholas Meyers &middot; <span class="gicon">G</span>Google review</div>
+            </div>
+            <div class="review">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"Great service and pc works nicely I recommend buying off this dude incase you need a nice prebuild"</p>
+              <div class="who">— j d &middot; <span class="gicon">G</span>Google review</div>
+            </div>
+            <div class="review">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"DeParts Systems was a pleasure to deal with for my PC needs. Knowledgeable and Helpful. Thanks!"</p>
+              <div class="who">— John H &middot; <span class="gicon">G</span>Google review</div>
+            </div>
+            <div class="review">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"He makes really good computers, really happy with mine that I got."</p>
+              <div class="who">— Ethyn Robinson &middot; <span class="gicon">G</span>Google review</div>
+            </div>
+            <div class="review">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"Had a great experience working with them and will continue to support them. Very helpful and honest. They know how to build a great system!"</p>
+              <div class="who">— Nigel Jesson &middot; <span class="gicon">G</span>Google review</div>
+            </div>
+            <div class="review">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"Extremely helpful. They improved my original pc plan, substituting old short-lifespan parts with newer, better parts while maintaining a low budget."</p>
+              <div class="who">— Axel Harkavy &middot; <span class="gicon">G</span>Google review</div>
+            </div>
+            <div class="review">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>"My bf and I had problems with our new build computer. I brought it in and Liang is super helpful. He updated me on every process, let me know which parts weren't working. Super communicative and very patient."</p>
+              <div class="who">— 蘇水涵 &middot; <span class="gicon">G</span>Google review</div>
+            </div>
+          </div>
         </div>
-        <div class="review">
-          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p>"Super communicative and very patient. He updated me on every process he did and let me know which parts were not working. Answered all my questions."</p>
-          <div class="who">— Verified Google review</div>
+        <div class="rev-controls">
+          <button class="rev-arrow" id="revPrev" type="button" aria-label="Previous review">&#8249;</button>
+          <div class="rev-dots" id="revDots"></div>
+          <button class="rev-arrow" id="revNext" type="button" aria-label="Next review">&#8250;</button>
         </div>
       </div>
       <a href="https://www.departspcs.com/portfolio" class="seemore" target="_blank" rel="noopener">See the full portfolio &amp; client case studies &rarr;</a>
@@ -191,5 +237,60 @@
   <div class="footer">
     DeParts Systems &middot; Alameda, CA &middot; Ships Nationally &middot; Cutting Edge, No Cut Corners.
 </div>
+
+  <script>
+  (function(){
+    var track = document.getElementById('revTrack');
+    if(!track) return;
+    var viewport = document.getElementById('revViewport');
+    var dotsWrap = document.getElementById('revDots');
+    var prev = document.getElementById('revPrev');
+    var next = document.getElementById('revNext');
+    var slides = track.children;
+    var n = slides.length;
+    var i = 0;
+
+    // build dot indicators
+    for(var d = 0; d < n; d++){
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'rev-dot';
+      dot.setAttribute('aria-label', 'Go to review ' + (d + 1));
+      (function(idx){ dot.addEventListener('click', function(){ go(idx); }); })(d);
+      dotsWrap.appendChild(dot);
+    }
+    var dots = dotsWrap.children;
+
+    function go(idx){
+      i = (idx + n) % n;
+      track.style.transform = 'translateX(' + (-i * 100) + '%)';
+      for(var k = 0; k < n; k++){
+        dots[k].className = (k === i) ? 'rev-dot active' : 'rev-dot';
+      }
+    }
+
+    prev.addEventListener('click', function(){ go(i - 1); });
+    next.addEventListener('click', function(){ go(i + 1); });
+
+    // keyboard arrows when focus is within the slider
+    viewport.setAttribute('tabindex', '0');
+    viewport.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowLeft'){ go(i - 1); }
+      else if(e.key === 'ArrowRight'){ go(i + 1); }
+    });
+
+    // touch swipe
+    var x0 = null;
+    viewport.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+    viewport.addEventListener('touchend', function(e){
+      if(x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if(Math.abs(dx) > 40){ dx < 0 ? go(i + 1) : go(i - 1); }
+      x0 = null;
+    });
+
+    go(0);
+  })();
+  </script>
 </body>
 </html>
