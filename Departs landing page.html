@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeParts Systems — AI Workstation Landing Page</title>
+<style>
+  :root{
+    --blue:#3b6bb5;
+    --blue-dark:#2f5694;
+    --ink:#1a1a1a;
+    --text:#3d4757;
+    --muted:#6b7585;
+    --bg:#ffffff;
+    --bg-soft:#eef2f9;
+    --border:#dde3ec;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Trebuchet MS","Segoe UI",Verdana,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 26px;}
+  a{color:inherit;}
+  .hero{padding:80px 0 64px;background:var(--bg);}
+  .eyebrow{color:var(--blue);font-size:15px;letter-spacing:.5px;margin-bottom:14px;font-weight:600;}
+  .hero h1{font-size:52px;line-height:1.05;font-weight:800;color:var(--ink);letter-spacing:-1px;margin-bottom:10px;}
+  .hero h1 .accent{color:var(--blue);}
+  .rule{width:90px;height:5px;background:var(--blue);border-radius:3px;margin:22px 0 26px;}
+  .hero .lead{font-size:19px;color:var(--text);max-width:620px;margin-bottom:8px;}
+  .hero .lead strong{color:var(--ink);}
+  .btn{
+    display:inline-block;background:#fff;color:var(--blue);font-weight:700;font-size:17px;
+    padding:14px 30px;border:2px solid var(--blue);border-radius:8px;text-decoration:none;margin-top:24px;
+  }
+  .btn:hover{background:var(--blue);color:#fff;}
+  .btn.solid{background:var(--blue);color:#fff;}
+  .btn.solid:hover{background:var(--blue-dark);}
+  .phone{margin-top:20px;color:var(--ink);font-size:16px;}
+  .phone b{color:var(--blue);}
+  .stats{background:var(--bg-soft);padding:40px 0;}
+  .stats-grid{display:flex;justify-content:center;gap:64px;flex-wrap:wrap;text-align:center;}
+  .stat .num{font-size:38px;font-weight:800;color:var(--blue);line-height:1;}
+  .stat .lbl{font-size:14px;color:var(--muted);margin-top:6px;}
+  .intro{padding:56px 0;text-align:center;background:var(--bg-soft);}
+  .intro p{font-size:19px;color:var(--text);max-width:680px;margin:0 auto;}
+  .intro strong{color:var(--ink);}
+  .offer{padding:56px 0;text-align:center;}
+  .offer .price{color:var(--blue);font-weight:700;font-size:16px;letter-spacing:.5px;margin-bottom:8px;}
+  .offer h2{font-size:30px;color:var(--ink);margin-bottom:14px;}
+  .offer .specs{max-width:560px;margin:0 auto 4px;color:var(--text);font-size:16px;}
+  .offer .specs li{list-style:none;padding:7px 0;border-bottom:1px solid var(--border);}
+  .offer .specs li:last-child{border-bottom:none;}
+  .why{padding:56px 0;background:var(--bg-soft);}
+  .why h2{text-align:center;font-size:30px;color:var(--ink);margin-bottom:8px;}
+  .why h2 .accent{color:var(--blue);}
+  .why .sub{text-align:center;color:var(--muted);margin-bottom:36px;}
+  .accord{max-width:760px;margin:0 auto;}
+  .row{background:#fff;border:1px solid var(--border);border-radius:10px;padding:22px 24px;margin-bottom:14px;}
+  .row .n{color:var(--ink);font-weight:800;margin-right:8px;}
+  .row .t{color:var(--blue);font-weight:700;font-size:18px;}
+  .row p{margin-top:8px;color:var(--text);font-size:15px;}
+  .proof{padding:56px 0;text-align:center;}
+  .proof h2{font-size:28px;color:var(--ink);margin-bottom:28px;}
+  .photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:30px;}
+  .photo{background:linear-gradient(135deg,#e8edf6,#dce4f0);border:1px dashed var(--blue);border-radius:10px;height:170px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;padding:10px;text-align:center;}
+  .reviews{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left;}
+  .review{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;}
+  .review .stars{color:#f5b716;font-size:15px;margin-bottom:8px;}
+  .review p{font-size:15px;color:var(--text);}
+  .review .who{margin-top:10px;font-size:13px;color:var(--muted);font-weight:600;}
+  .final{padding:72px 0;text-align:center;background:var(--bg-soft);}
+  .final h2{font-size:32px;color:var(--ink);margin-bottom:10px;}
+  .final h2 .accent{color:var(--blue);}
+  .final p{color:var(--text);font-size:17px;margin-bottom:8px;}
+  .footer{padding:28px 0;text-align:center;color:var(--muted);font-size:13px;background:#fff;border-top:1px solid var(--border);}
+  .note{background:#eef2f9;border-left:4px solid var(--blue);padding:12px 18px;margin:0 auto 24px;max-width:880px;font-size:13px;color:var(--muted);}
+  @media(max-width:640px){
+    .hero h1{font-size:36px;}
+    .photos{grid-template-columns:1fr;}
+    .reviews{grid-template-columns:1fr;}
+    .stats-grid{gap:36px;}
+  }
+
+  .seemore{display:inline-block;margin-top:22px;color:var(--blue);font-size:15px;text-decoration:none;border-bottom:1px solid var(--blue);padding-bottom:2px;}
+  .seemore:hover{color:var(--blue-dark);border-color:var(--blue-dark);}
+  .secondary-link{display:block;margin-top:16px;color:var(--muted);font-size:14px;text-decoration:underline;}
+  .secondary-link:hover{color:var(--blue);}
+</style>
+</head>
+<body>
+  <div class="note">BLUEPRINT — matched to the real DeParts brand (light bg, blue #3b6bb5 accents, rounded font, black+blue headline style). Recreate this in Carrd. Swap photo boxes for the real build photos. All copy is ready to use — just verify numbers before publishing.</div>
+
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Bay Area &middot; Ships Nationally</div>
+      <h1>Custom AI Workstations,<br><span class="accent">No Cut Corners.</span></h1>
+      <div class="rule"></div>
+      <p class="lead">Multi-GPU systems built for local model serving — <strong>70B to 405B+ parameters.</strong> Specced to your models, stress-tested before they ship, and backed for life by the person who built them.</p>
+      <a href="#contact" class="btn solid">Get a Free Build Consultation</a>
+      <div class="phone">Or text us directly — <b>(510) 999-6938</b></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stats-grid">
+      <div class="stat"><div class="num">100+</div><div class="lbl">builds done</div></div>
+      <div class="stat"><div class="num">5.0&#9733;</div><div class="lbl">121 reviews</div></div>
+      <div class="stat"><div class="num">5 yrs</div><div class="lbl">in operation</div></div>
+      <div class="stat"><div class="num">$0</div><div class="lbl">consult fee</div></div>
+    </div>
+  </div>
+
+  <div class="intro">
+    <div class="wrap">
+      <p>Running large models locally means you need <strong>real hardware</strong> — not a marked-up prebuilt with proprietary parts you can't upgrade. We design around your exact workload, prove it works before it ships, and never lock you into one ecosystem.</p>
+    </div>
+  </div>
+
+  <div class="offer">
+    <div class="wrap">
+      <div class="price">FROM $12,000 &middot; MOST REQUESTED</div>
+      <h2>AI &amp; LLM Inference Workstations</h2>
+      <ul class="specs">
+        <li>RTX PRO 6000 Blackwell or multi-GPU configurations</li>
+        <li>Threadripper PRO &middot; up to 256GB ECC RAM</li>
+        <li>70B&ndash;405B+ LLM inference capable</li>
+        <li>TensorFlow, PyTorch &amp; vLLM ready</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="why">
+    <div class="wrap">
+      <h2>Why <span class="accent">Choose Us</span></h2>
+      <div class="sub">The stuff prebuilt vendors don't bother with.</div>
+      <div class="accord">
+        <div class="row">
+          <span class="n">01</span><span class="t">Every build is fully stress-tested</span>
+          <p>Thermal stability, stress benchmarks, and pass/fail criteria all checked before your system leaves. You get a signed validation report — most builders skip this entirely.</p>
+        </div>
+        <div class="row">
+          <span class="n">02</span><span class="t">Superior pricing &amp; modularity</span>
+          <p>Constantly price-matched against the biggest brands. No proprietary, non-reusable parts that trap you into overpriced repairs or force you to trash a whole build to upgrade one piece.</p>
+        </div>
+        <div class="row">
+          <span class="n">03</span><span class="t">USA built + lifetime support</span>
+          <p>Every system is handbuilt, set up, and stress-tested in California. Every client gets my direct contact for responsive aftercare — for as long as you own the machine.</p>
+        </div>
+        <div class="row">
+          <span class="n">04</span><span class="t">A simple, honest process</span>
+          <p>Text us your workload and budget. If your plan has a problem, we'll tell you before you spend anything. No pressure, no commitment on the consult.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proof">
+    <div class="wrap">
+      <h2>Real builds, real clients</h2>
+      <div class="photos">
+        <div class="photo">[ Real build photo<br>from portfolio ]</div>
+        <div class="photo">[ Real build photo<br>from portfolio ]</div>
+        <div class="photo">[ Real build photo<br>from portfolio ]</div>
+      </div>
+      <div class="reviews">
+        <div class="review">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Bro is the best pc builder around. Helped me and built the pc of my dreams cheaper than anyone. So lucky to find my boy. Thanks again man!!"</p>
+          <div class="who">— Nicholas Meyers &middot; Google review</div>
+        </div>
+        <div class="review">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Super communicative and very patient. He updated me on every process he did and let me know which parts were not working. Answered all my questions."</p>
+          <div class="who">— Verified Google review</div>
+        </div>
+      </div>
+      <a href="https://www.departspcs.com/portfolio" class="seemore" target="_blank" rel="noopener">See the full portfolio &amp; client case studies &rarr;</a>
+    </div>
+  </div>
+
+  <div class="final" id="contact">
+    <div class="wrap">
+      <h2>Ready to <span class="accent">spec your build?</span></h2>
+      <p>Free consultation, no pressure. Tell us what you're running and we'll design the right system around it.</p>
+      <a href="#" class="btn solid">Text Us to Get Started</a>
+      <div class="phone">(510) 999-6938 &middot; liang@departspcs.com</div>
+      <a href="https://www.departspcs.com/home" class="secondary-link" target="_blank" rel="noopener">Prefer to browse first? Visit the full DeParts site</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    DeParts Systems &middot; Alameda, CA &middot; Ships Nationally &middot; Cutting Edge, No Cut Corners.
+  </div>
+</body>
+</html>
