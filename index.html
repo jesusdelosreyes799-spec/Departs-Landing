@@ -85,6 +85,10 @@
   .photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:30px;}
   .swipe-hint{display:none;}
   .photo{width:100%;height:auto;border:1px solid var(--border);border-radius:10px;display:block;}
+  .build-card{min-width:0;}
+  .build-caption{padding:12px 4px 0;text-align:left;}
+  .build-tier{color:var(--ink);font-size:15px;font-weight:700;line-height:1.35;}
+  .build-description{margin-top:3px;color:var(--muted);font-size:14px;line-height:1.4;}
   .photo-button{appearance:none;background:none;border:0;padding:0;margin:0;width:100%;min-width:0;display:block;border-radius:10px;cursor:zoom-in;}
   .photo-button:hover .photo{border-color:var(--blue);box-shadow:0 8px 22px rgba(59,107,181,.16);}
   .photo-button:focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
@@ -131,7 +135,7 @@
     .hero h1{font-size:36px;}
     .photos{display:flex;overflow-x:auto;gap:16px;padding-inline:7.5%;margin-bottom:0;scroll-padding-inline:7.5%;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
     .photos::-webkit-scrollbar{display:none;}
-    .photos .photo-button{width:100%;flex:0 0 100%;scroll-snap-align:center;}
+    .photos .build-card{width:100%;flex:0 0 100%;scroll-snap-align:center;}
     .swipe-hint{display:block;margin:10px 0 24px;color:var(--muted);font-size:14px;text-align:center;}
     .reviews{grid-template-columns:1fr;}
     .stats-grid{gap:36px;}
@@ -220,15 +224,33 @@
     <div class="wrap">
       <h2>Real builds, real clients</h2>
       <div class="photos">
-        <button class="photo-button" type="button" aria-haspopup="dialog" aria-label="Open enlarged Dawn build photo">
-          <img class="photo" src="images/dawn-build.webp" alt="DeParts Systems Dawn custom gaming PC build" width="1200" height="1600" loading="lazy" draggable="false">
-        </button>
-        <button class="photo-button" type="button" aria-haspopup="dialog" aria-label="Open enlarged Dusk build photo">
-          <img class="photo" src="images/dusk-build.webp" alt="DeParts Systems Dusk custom gaming PC build" width="1200" height="1600" loading="lazy" draggable="false">
-        </button>
-        <button class="photo-button" type="button" aria-haspopup="dialog" aria-label="Open enlarged Eclipse build photo">
-          <img class="photo" src="images/eclipse-build.webp" alt="DeParts Systems Eclipse custom gaming PC build" width="1200" height="1600" loading="lazy" draggable="false">
-        </button>
+        <article class="build-card">
+          <button class="photo-button" type="button" aria-haspopup="dialog" aria-label="Open enlarged Dawn build photo">
+            <img class="photo" src="images/dawn-build.webp" alt="DeParts Systems Dawn custom gaming PC build" width="1200" height="1600" loading="lazy" draggable="false">
+          </button>
+          <div class="build-caption">
+            <div class="build-tier">DAWN &mdash; ~$2,000</div>
+            <div class="build-description">Smooth 1080p high-refresh gaming</div>
+          </div>
+        </article>
+        <article class="build-card">
+          <button class="photo-button" type="button" aria-haspopup="dialog" aria-label="Open enlarged Dusk build photo">
+            <img class="photo" src="images/dusk-build.webp" alt="DeParts Systems Dusk custom gaming PC build" width="1200" height="1600" loading="lazy" draggable="false">
+          </button>
+          <div class="build-caption">
+            <div class="build-tier">DUSK &mdash; ~$3,000 &middot; Most popular</div>
+            <div class="build-description">High-refresh 1440p performance</div>
+          </div>
+        </article>
+        <article class="build-card">
+          <button class="photo-button" type="button" aria-haspopup="dialog" aria-label="Open enlarged Eclipse build photo">
+            <img class="photo" src="images/eclipse-build.webp" alt="DeParts Systems Eclipse custom gaming PC build" width="1200" height="1600" loading="lazy" draggable="false">
+          </button>
+          <div class="build-caption">
+            <div class="build-tier">ECLIPSE &mdash; ~$4,000 &middot; Flagship</div>
+            <div class="build-description">1440p max / 4K-ready</div>
+          </div>
+        </article>
       </div>
       <p class="swipe-hint">Swipe to see more &rarr;</p>
       <div class="rev-slider">
