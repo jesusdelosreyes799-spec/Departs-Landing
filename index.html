@@ -84,6 +84,17 @@
   .proof h2{font-size:28px;color:var(--ink);margin-bottom:28px;}
   .photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:30px;}
   .photo{width:100%;height:auto;border:1px solid var(--border);border-radius:10px;display:block;}
+  .photo-button{appearance:none;background:none;border:0;padding:0;margin:0;width:100%;min-width:0;display:block;border-radius:10px;cursor:zoom-in;}
+  .photo-button:hover .photo{border-color:var(--blue);box-shadow:0 8px 22px rgba(59,107,181,.16);}
+  .photo-button:focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
+  .lightbox{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.88);}
+  .lightbox[hidden]{display:none;}
+  .lightbox-content{position:relative;max-width:100%;max-height:100%;display:flex;align-items:center;justify-content:center;}
+  .lightbox-image{display:block;width:auto;height:auto;max-width:calc(100vw - 48px);max-height:calc(100vh - 48px);object-fit:contain;border-radius:10px;}
+  .lightbox-close{position:absolute;top:8px;right:8px;width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:var(--ink);font-size:28px;line-height:1;cursor:pointer;}
+  .lightbox-close:hover{background:var(--bg-soft);}
+  .lightbox-close:focus-visible{outline:3px solid var(--blue);outline-offset:2px;}
+  body.lightbox-open{overflow:hidden;}
   .reviews{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left;}
   .review{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;}
   .review .stars{color:#f5b716;font-size:15px;margin-bottom:8px;}
@@ -117,7 +128,9 @@
   .note{background:#eef2f9;border-left:4px solid var(--blue);padding:12px 18px;margin:0 auto 24px;max-width:880px;font-size:13px;color:var(--muted);}
   @media(max-width:640px){
     .hero h1{font-size:36px;}
-    .photos{grid-template-columns:1fr;}
+    .photos{display:flex;overflow-x:auto;gap:16px;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+    .photos::-webkit-scrollbar{display:none;}
+    .photos .photo-button{width:85%;flex:0 0 85%;scroll-snap-align:start;}
     .reviews{grid-template-columns:1fr;}
     .stats-grid{gap:36px;}
   }
@@ -205,9 +218,15 @@
     <div class="wrap">
       <h2>Real builds, real clients</h2>
       <div class="photos">
-        <img class="photo" src="images/dawn-build.webp" alt="DeParts Systems Dawn custom gaming PC build" width="1200" height="1600" loading="lazy">
-        <img class="photo" src="images/dusk-build.webp" alt="DeParts Systems Dusk custom gaming PC build" width="1200" height="1600" loading="lazy">
-        <img class="photo" src="images/eclipse-build.webp" alt="DeParts Systems Eclipse custom gaming PC build" width="1200" height="1600" loading="lazy">
+        <button class="photo-button" type="button" aria-haspopup="dialog" aria-label="Open enlarged Dawn build photo">
+          <img class="photo" src="images/dawn-build.webp" alt="DeParts Systems Dawn custom gaming PC build" width="1200" height="1600" loading="lazy" draggable="false">
+        </button>
+        <button class="photo-button" type="button" aria-haspopup="dialog" aria-label="Open enlarged Dusk build photo">
+          <img class="photo" src="images/dusk-build.webp" alt="DeParts Systems Dusk custom gaming PC build" width="1200" height="1600" loading="lazy" draggable="false">
+        </button>
+        <button class="photo-button" type="button" aria-haspopup="dialog" aria-label="Open enlarged Eclipse build photo">
+          <img class="photo" src="images/eclipse-build.webp" alt="DeParts Systems Eclipse custom gaming PC build" width="1200" height="1600" loading="lazy" draggable="false">
+        </button>
       </div>
       <div class="rev-slider">
         <div class="rev-viewport" id="revViewport">
@@ -330,7 +349,87 @@
     DeParts Systems &middot; Alameda, CA &middot; Ships Nationally &middot; Cutting Edge, No Cut Corners.
 </div>
 
+  <div class="lightbox" id="buildLightbox" role="dialog" aria-modal="true" aria-label="Enlarged build photo" hidden>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="buildLightboxClose" type="button" aria-label="Close enlarged build photo">&times;</button>
+      <img class="lightbox-image" id="buildLightboxImage" alt="">
+    </div>
+  </div>
+
   <script>
+  (function(){
+    var lightbox = document.getElementById('buildLightbox');
+    var lightboxImage = document.getElementById('buildLightboxImage');
+    var closeButton = document.getElementById('buildLightboxClose');
+    var triggers = document.querySelectorAll('.photo-button');
+    var lastTrigger = null;
+    if(!lightbox || !lightboxImage || !closeButton) return;
+
+    function openLightbox(trigger){
+      var image = trigger.querySelector('.photo');
+      lastTrigger = trigger;
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+      lightbox.hidden = false;
+      document.body.classList.add('lightbox-open');
+      closeButton.focus();
+    }
+
+    function closeLightbox(){
+      if(lightbox.hidden) return;
+      lightbox.hidden = true;
+      document.body.classList.remove('lightbox-open');
+      lightboxImage.removeAttribute('src');
+      lightboxImage.alt = '';
+      if(lastTrigger){ lastTrigger.focus(); }
+    }
+
+    for(var p = 0; p < triggers.length; p++){
+      (function(trigger){
+        var startX = 0;
+        var startY = 0;
+        var dragged = false;
+        trigger.addEventListener('pointerdown', function(e){
+          startX = e.clientX;
+          startY = e.clientY;
+          dragged = false;
+        });
+        trigger.addEventListener('pointermove', function(e){
+          if(Math.abs(e.clientX - startX) > 10 || Math.abs(e.clientY - startY) > 10){ dragged = true; }
+        });
+        trigger.addEventListener('pointerup', function(e){
+          if(Math.abs(e.clientX - startX) > 10 || Math.abs(e.clientY - startY) > 10){ dragged = true; }
+        });
+        trigger.addEventListener('pointercancel', function(){ dragged = true; });
+
+        trigger.addEventListener('click', function(e){
+          if(e.detail !== 0 && dragged){
+            e.preventDefault();
+            dragged = false;
+            return;
+          }
+          dragged = false;
+          openLightbox(trigger);
+        });
+      })(triggers[p]);
+    }
+
+    closeButton.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function(e){
+      if(e.target === lightbox){ closeLightbox(); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(lightbox.hidden) return;
+      if(e.key === 'Escape'){
+        e.preventDefault();
+        closeLightbox();
+      }else if(e.key === 'Tab'){
+        e.preventDefault();
+        closeButton.focus();
+      }
+    });
+  })();
+
   document.querySelectorAll('[data-cta-location]').forEach(function(cta){
     cta.addEventListener('click', function(){
       gtag('event', 'cta_click', {
