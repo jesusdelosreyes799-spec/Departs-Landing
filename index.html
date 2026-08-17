@@ -83,7 +83,7 @@
   .proof{padding:56px 0;text-align:center;}
   .proof h2{font-size:28px;color:var(--ink);margin-bottom:28px;}
   .photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:30px;}
-  .photo{background:linear-gradient(135deg,#e8edf6,#dce4f0);border:1px dashed var(--blue);border-radius:10px;height:170px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;padding:10px;text-align:center;}
+  .photo{width:100%;height:auto;border:1px solid var(--border);border-radius:10px;display:block;}
   .reviews{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left;}
   .review{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;}
   .review .stars{color:#f5b716;font-size:15px;margin-bottom:8px;}
@@ -205,9 +205,9 @@
     <div class="wrap">
       <h2>Real builds, real clients</h2>
       <div class="photos">
-        <div class="photo">[ Real build photo<br>from portfolio ]</div>
-        <div class="photo">[ Real build photo<br>from portfolio ]</div>
-        <div class="photo">[ Real build photo<br>from portfolio ]</div>
+        <img class="photo" src="images/dawn-build.webp" alt="DeParts Systems Dawn custom gaming PC build" width="1200" height="1600" loading="lazy">
+        <img class="photo" src="images/dusk-build.webp" alt="DeParts Systems Dusk custom gaming PC build" width="1200" height="1600" loading="lazy">
+        <img class="photo" src="images/eclipse-build.webp" alt="DeParts Systems Eclipse custom gaming PC build" width="1200" height="1600" loading="lazy">
       </div>
       <div class="rev-slider">
         <div class="rev-viewport" id="revViewport">
